@@ -8,8 +8,10 @@ CONFIG -= app_bundle
 TEMPLATE = app
 
 SOURCES += main.cpp \
-    customapp.cpp
+    customapp.cpp \
+    eventdebug.cpp
 
 HEADERS += \
-    customapp.h
+    customapp.h \
+    eventdebug.h
 

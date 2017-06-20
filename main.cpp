@@ -1,31 +1,34 @@
 #include <iostream>
 //#include <string>
 //#include <QProcess>
+#include <QCoreApplication>
 #include <QTextStream>
 #include <QString>
 #include <QDebug>
 
 #include "customapp.h"
+#include "eventdebug.h"
 
 //using namespace std;
 
 int main(int argc, char *argv[])
 {
-    //QTextStream qout(stdout);
-    qDebug() << "Salut !";
-    //QTextStream cin(stdin);
-    //QTextStream cout(stdout);
-    //QString stdOutputString = "PU ";
+    QCoreApplication a(argc, argv);
 
     QString program = "ls";
+    QString msg = "process STARTED !";
     QStringList arguments;
     arguments << "/home/";
 
-    //QObject *parent;
+
     CustomApp myProcess;
+    EventDebug myED;
+
+    myED.connect(&myProcess,SIGNAL(started()),&myED,SLOT(eventCatch()));
+
+
     myProcess.start(program,arguments);
-    //myProcess.waitForReadyRead();
-    //
+
     if(!myProcess.waitForFinished())
     {
         return 1;
@@ -36,5 +39,7 @@ int main(int argc, char *argv[])
     //stdOutputString = "TEST" ;
     std::cout << "TEST ! " << std::endl;
     std::cout << result.toStdString();
+
+    return a.exec();
 }
 
