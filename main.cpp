@@ -12,14 +12,14 @@
 int main(int argc, char *argv[])
 {
     //QTextStream qout(stdout);
-    //qInfo() << "Salut !" << endl;
+    qDebug() << "Salut !";
     //QTextStream cin(stdin);
     //QTextStream cout(stdout);
     //QString stdOutputString = "PU ";
 
     QString program = "ls";
     QStringList arguments;
-    arguments << "/home/arnaud/Documents/";
+    arguments << "/home/";
 
     //QObject *parent;
     CustomApp myProcess;
@@ -31,7 +31,7 @@ int main(int argc, char *argv[])
         return 1;
     }
 
-    QByteArray result = myProcess.readAll();
+    QString result = myProcess.readAll();
 
     //stdOutputString = "TEST" ;
     std::cout << "TEST ! " << std::endl;

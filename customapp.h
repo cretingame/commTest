@@ -5,7 +5,7 @@
 
 class CustomApp  : public QProcess
 {
-
+    Q_OBJECT
 public:
     CustomApp();
     ~CustomApp();
