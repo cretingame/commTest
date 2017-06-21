@@ -7,6 +7,7 @@
 #include <QDebug>
 
 #include "customapp.h"
+#include "server.h"
 #include "eventdebug.h"
 
 //using namespace std;
@@ -16,12 +17,12 @@ int main(int argc, char *argv[])
     QCoreApplication a(argc, argv);
 
     QString program = "ls";
-    QString msg = "process STARTED !";
     QStringList arguments;
     arguments << "/home/";
 
 
     CustomApp myProcess;
+    Server myServer;
     EventDebug myED;
 
     myED.connect(&myProcess,SIGNAL(started()),&myED,SLOT(eventCatch()));
@@ -39,6 +40,7 @@ int main(int argc, char *argv[])
     //stdOutputString = "TEST" ;
     std::cout << "TEST ! " << std::endl;
     std::cout << result.toStdString();
+
 
     return a.exec();
 }

@@ -1,5 +1,6 @@
 QT += core
 QT -= gui
+QT += network
 
 TARGET = commTest
 CONFIG += console
@@ -9,9 +10,11 @@ TEMPLATE = app
 
 SOURCES += main.cpp \
     customapp.cpp \
-    eventdebug.cpp
+    eventdebug.cpp \
+    server.cpp
 
 HEADERS += \
     customapp.h \
-    eventdebug.h
+    eventdebug.h \
+    server.h
 
