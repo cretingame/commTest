@@ -5,6 +5,7 @@
 #include <QtNetwork>
 //#include <QTcpServer>
 #include <QDebug>
+#include "client.h"
 
 class Server : public QTcpServer
 {
@@ -12,10 +13,14 @@ class Server : public QTcpServer
 public:
     explicit Server(QObject *parent = 0);
     virtual ~Server();
+    virtual void addClient(Client *client);
+    virtual void removeClient(QObject *object);
 signals:
 
 public slots:
-    void reply();
+    virtual void linkClient();
+private:
+    QList<Client*> clientList;
 };
 
 #endif // SERVER_H

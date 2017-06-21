@@ -28,7 +28,7 @@ Server::Server(QObject *parent) : QTcpServer(parent)
 
     qDebug() << "Server is running: " << ipAddress << ":" << this->serverPort();
 
-    connect(this,SIGNAL(newConnection()),this,SLOT(reply()));
+    connect(this,SIGNAL(newConnection()),this,SLOT(linkClient()));
 
 }
 
@@ -37,14 +37,31 @@ Server::~Server()
 
 }
 
-void Server::reply() {
-    QByteArray block;
-    QDataStream out(&block,QIODevice::WriteOnly);
+void Server::linkClient() {
+    //QByteArray block;
+    //QDataStream out(&block,QIODevice::WriteOnly);
     //out.setVersion(QDataStream::Qt_5_5);
-    out << "HELLO !";
+    //out << "HELLO !";
 
     qDebug() << "New connection !";
     QTcpSocket * clientConnection = this->nextPendingConnection();
-    clientConnection->write(block);
-    clientConnection->disconnectFromHost();
+    Client * client = new Client();
+    client -> setSocket(clientConnection);
+    connect(client,SIGNAL(destroyed(QObject*)),this,SLOT(removeClient(QObject*)));
+    addClient(client);
+    //clientConnection->write(block);
+    //clientConnection->disconnectFromHost();
+    //delete clientConnection;
+}
+
+void Server::addClient(Client *client)
+{
+    clientList.append(client);
+}
+
+void Server::removeClient(QObject *object)
+{
+    //TODO
+    //Client * client = object;
+    //clientList.removeOne(client);
 }
