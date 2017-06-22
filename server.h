@@ -14,11 +14,11 @@ public:
     explicit Server(QObject *parent = 0);
     virtual ~Server();
     virtual void addClient(Client *client);
-    virtual void removeClient(QObject *object);
+    virtual void removeClient();
 signals:
 
 public slots:
-    virtual void linkClient();
+    virtual void newConnection();
 private:
     QList<Client*> clientList;
 };

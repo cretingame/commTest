@@ -18,7 +18,7 @@ int main(int argc, char *argv[])
 
     QString program = "ls";
     QStringList arguments;
-    arguments << "/home/";
+    arguments << "-la" << "/";
 
 
     CustomApp myProcess;

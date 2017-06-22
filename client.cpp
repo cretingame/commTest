@@ -28,5 +28,5 @@ void Client::receiveData()
 
 void Client::disconnect()
 {
-    qDebug() << "Client" << socket->localAddress().toString();
+    qDebug() << "Client " << socket->localAddress().toString() << " disconnected";
 }
