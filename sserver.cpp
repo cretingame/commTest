@@ -1,6 +1,7 @@
-#include "server.h"
+#include "sserver.h"
+#include "sclient.h"
 
-Server::Server(QObject *parent) : QTcpServer(parent)
+ScienzServer::ScienzServer(QObject *parent) : QTcpServer(parent)
 {
     if (!listen()) {
         qDebug() << tr("Unable to start the server: %1.").arg(errorString());
@@ -32,12 +33,12 @@ Server::Server(QObject *parent) : QTcpServer(parent)
 
 }
 
-Server::~Server()
+ScienzServer::~ScienzServer()
 {
 
 }
 
-void Server::newConnection() {
+void ScienzServer::newConnection() {
     //QByteArray block;
     //QDataStream out(&block,QIODevice::WriteOnly);
     //out.setVersion(QDataStream::Qt_5_5);
@@ -45,8 +46,9 @@ void Server::newConnection() {
 
     qDebug() << "New connection !";
     QTcpSocket * clientConnection = this->nextPendingConnection();
-    Client * client = new Client();
+    ScienzClient * client = new ScienzClient();
     client -> setSocket(clientConnection);
+    client -> setServer(this);
     //connect(client,SIGNAL(destroyed(QObject*)),this,SLOT(removeClient()));
     addClient(client);
     //clientConnection->write(block);
@@ -54,16 +56,17 @@ void Server::newConnection() {
     //delete clientConnection;
 }
 
-void Server::addClient(Client *client)
+void ScienzServer::addClient(ScienzClient *client)
 {
     clientList.append(client);
 }
 
-void Server::removeClient()
+void ScienzServer::removeClient(ScienzClient *client)
 {
     //TODO
     //Client * client = object;
-    //clientList.removeOne(object);
+    clientList.removeOne(client);
+    /*
     for(int i=0;i<clientList.size();i++)
     {
         if(clientList.at(i) == NULL)
@@ -71,5 +74,6 @@ void Server::removeClient()
             qDebug() << "Client nullptr";
         }
     }
+    */
     qDebug() << "Client removed";
 }

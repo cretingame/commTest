@@ -7,7 +7,7 @@
 #include <QDebug>
 
 #include "customapp.h"
-#include "server.h"
+#include "sserver.h"
 #include "eventdebug.h"
 
 //using namespace std;
@@ -22,7 +22,7 @@ int main(int argc, char *argv[])
 
 
     CustomApp myProcess;
-    Server myServer;
+    ScienzServer myServer;
     EventDebug myED;
 
     myED.connect(&myProcess,SIGNAL(started()),&myED,SLOT(eventCatch()));
@@ -32,7 +32,7 @@ int main(int argc, char *argv[])
 
     if(!myProcess.waitForFinished())
     {
-        return 1;
+        return 1; // gérer erreur
     }
 
     QString result = myProcess.readAll();
@@ -41,6 +41,7 @@ int main(int argc, char *argv[])
     std::cout << "TEST ! " << std::endl;
     std::cout << result.toStdString();
 
+    //a.exit();
 
     return a.exec();
 }

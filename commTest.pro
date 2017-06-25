@@ -11,12 +11,12 @@ TEMPLATE = app
 SOURCES += main.cpp \
     customapp.cpp \
     eventdebug.cpp \
-    server.cpp \
-    client.cpp
+    sserver.cpp \
+    sclient.cpp
 
 HEADERS += \
     customapp.h \
     eventdebug.h \
-    server.h \
-    client.h
+    sserver.h \
+    sclient.h
 
